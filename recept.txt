@@ -11,3 +11,4 @@ python manage.py createsuperuser
 # далле логин и пароль
 python manage.py runserver
 django-admin startapp core
+python manage.py makemigrations

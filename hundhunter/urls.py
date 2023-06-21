@@ -4,7 +4,8 @@ from core.views import (
     homepage,
     about,
     contacts,
-    adress
+    adress,
+    vacancy_list,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('about/', about),
     path('contacts/',  contacts),
     path('adress/', adress),
+    path('vacancies/', vacancy_list),
 ]

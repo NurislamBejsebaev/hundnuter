@@ -1,9 +1,10 @@
 from django.shortcuts import render, HttpResponse
+from core.models import Vacancy
 # Create your views here.
 
 
 def homepage(request):
-    return HttpResponse('hi')
+    return render(request=request, template_name="index.html")
 
 
 def about(request):
@@ -27,3 +28,8 @@ def adress(request):
             <li>г. Ош, Черемушка, дом 235</li>
         </ul>
     ''')
+
+
+def vacancy_list(request):
+    context = {"vacancies": Vacancy.objects.all()}
+    return render(request, 'vacanies.html', context)
