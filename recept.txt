@@ -1,0 +1,13 @@
+mkdir hundhunter
+cd hundhunter
+python -m venv venv
+call venv\Scripts\activate
+pip install django
+pip freeze
+pip freeze > requirments.txt
+django-admin startproject hundhunter . # пробел точка обезательно
+python manage.py migrate
+python manage.py createsuperuser
+# далле логин и пароль
+python manage.py runserver
+django-admin startapp core
