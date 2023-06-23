@@ -5,9 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+{% block content %}
     <h1>Список компаний</h1>
-    {% for c in companies %}
-        <div>{{ c.name }} - {{ c.address }} - {{ c.num_employees }}</div>
+    <ul>
+    {% for company in companies %}
+        <li>{{ company.name }} - {{ company.address }} - {{ company.num_employees }} сотрудников - {% if company.is_hunting %}ищет сотрудников{% else %}не ищет сотрудников{% endif %}</li>
     {% endfor %}
+    </ul>
+{% endblock %}
 </body>
 </html>
