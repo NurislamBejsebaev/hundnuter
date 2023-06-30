@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{%  block my_title %}
+      информация о содруднике
+{% endblock %}
+{% block content  %}
+      <h1>Информация о содруднике</h1>
+      <ul>
+        <li>логин: {{ worker.user.username }} </li>
+        <li>Имя: {{ worker.name }}</li>
+        <li>професия: {{ worker.specialization }}</li>
+        <li>Ожидаемая зарплата: {{ worker.expected_salary }}</li>
+        <li>Ищет работу: {{ worker.is_searching }}</li>
+      </ul>
+{% endblock %}

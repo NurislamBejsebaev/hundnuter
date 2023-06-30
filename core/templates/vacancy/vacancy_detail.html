@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{%  block my_title %}
+      вакансия j ugvyt
+{% endblock %}
+
+{% block content  %}
+<h2>Описание вакансии</h2>
+<p>{{ vacancy.description }}</p>
+
+<h2>Кандидаты</h2>
+<ul>
+  {% for candidate in candidates %}
+    <li>{{ candidate.name }}</li>
+  {% empty %}
+    <li>Нет кандидатов</li>
+  {% endfor %}
+</ul>
+{% endblock %}

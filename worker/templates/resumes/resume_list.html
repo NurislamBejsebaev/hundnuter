@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{%  block my_title %}
+          resumess
+{% endblock %}
+{% block content  %}
+<h1>Резюме</h1>
+    <ul>
+    {% for r in resumes %}
+        <div><a href="/resume-info/{{ r.id }}">{{r.text}}</a></div>
+    {% endfor %}
+    </ul>
+
+
+
+{% endblock %}

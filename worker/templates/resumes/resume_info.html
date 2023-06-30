@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{%  block my_title %}
+      информация о резюме
+{% endblock %}
+{% block content  %}
+      <h1>Информация о резюме</h1>
+          <h2>{{resume.title}}</h2>
+          <div>{{resume.text}}</div>
+          <hr/>
+          <div>{{resume.created_at}}</div>
+{% endblock %}
