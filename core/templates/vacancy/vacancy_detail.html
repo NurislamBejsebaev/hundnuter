@@ -8,6 +8,7 @@
 {% block content  %}
 <h2>Описание вакансии</h2>
 <p>{{ vacancy.description }}</p>
+<p>{{vacancy.salary}}</p>
 
 <h2>Кандидаты</h2>
 <ul>
@@ -16,5 +17,6 @@
   {% empty %}
     <li>Нет кандидатов</li>
   {% endfor %}
+  <a href="{% url 'vacancy-edit' vacancy.id %}">Изменить вакансии</a> |
 </ul>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 
 
@@ -27,3 +27,31 @@ def resume_info(request, id):
 def my_resume(request):
     resume_query = Resume.objects.filter(worker=request.user.worker)
     return render(request, "resumes/resume_list.html", {'resumes': resume_query})
+
+
+def add_resume(request):
+    if request.method == "GET":
+        return render(request, 'resumes/resume_add.html')
+    elif request.method == "POST":
+        new_rusume = Resume()
+        new_rusume.worker = request.user.worker
+        new_rusume.created_at = request.POST['form-created_at']
+        new_rusume.title = request.POST['form-title']
+        new_rusume.text = request.POST['form-text']
+        new_rusume.save()
+        return HttpResponse('successfully added')
+
+
+def resume_edit(request, id):
+    resume = Resume.objects.get(id=id)
+    if request.method == "POST":
+        resume.title = request.POST['title']
+        resume.text = request.POST['text']
+        resume.save()
+        return redirect(f'/vacancy/{resume.id}/')
+    return render(request, 'resumes/resume_edit.html', {'resume': resume})
+
+
+
+
+
