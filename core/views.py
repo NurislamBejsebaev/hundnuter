@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from core.models import Vacancy, Company
 from django.contrib.auth.models import User
+from .forms import VacancyForm, VacancyEditform, CompanyForm, CompanyEdit
 # Create your views here.
 
 
@@ -38,7 +39,14 @@ def vacancy_list(request):
 
 def company_list(request):
     contextr = {"companies": Company.objects.all()}
-    return render(request, 'company_list.html', contextr)
+    return render(request, 'company/company_list.html', contextr)
+
+
+def company_info(request, id):
+    company = Company.objects.get(id=id)
+    context = {'company': company}
+    return render(request, "company/info.html", context)
+
 
 
 def vacancy_detail(request, id):
@@ -89,6 +97,16 @@ def vacancy_add(request):
         return HttpResponse('successfully added')
 
 
+def vacancy_add_via_django_form(request):
+    if request.method == "POST":
+        form = VacancyForm(request.POST)
+        if form.is_valid():
+            new_vacancy = form.save()
+            return redirect(f'/vacancy/{new_vacancy.id}/')
+    vacancy_form = VacancyForm
+    return render(request, 'vacancy/vacancy_django_form.html', {"vacancy_form": vacancy_form})
+
+
 def vacancy_edit(request, id):
     vacancy = Vacancy.objects.get(id=id)
     if request.method == "POST":
@@ -99,3 +117,42 @@ def vacancy_edit(request, id):
         vacancy.save()
         return redirect(f'/vacancy/{vacancy.id}/')
     return render(request, 'vacancy/vacan_edit.html', {'vacancy': vacancy})
+
+
+def vacancy_edit_via_django_form(request, id):
+    vacancy_object = Vacancy.objects.get(id=id)
+    if request.method == 'GET':
+        vacancy_edit_form = VacancyEditform(instance=vacancy_object)
+        return render(request, 'vacancy/vacancy_edit_form.html', {'vacancy_edit_form': vacancy_edit_form})
+    elif request.method == 'POST':
+        vacancy_edit_form = VacancyForm(data=request.POST, instance=vacancy_object)
+        if vacancy_edit_form.is_valid():
+            obj = vacancy_edit_form.save()
+            return redirect(vacancy_detail, id=obj.id)
+        else:
+            HttpResponse('ajhvf yt dfkblyf')
+
+
+def company_add(request):
+    if request.method == "POST":
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            new_company = form.save()
+            return redirect(f'/company-info/{new_company.id}/')
+    else:
+        company_form = CompanyForm()
+        return render(request, 'company/add.html', {"form": company_form})
+
+
+def company_edit(request, id):
+    company_object = Company.objects.get(id=id)
+    if request.method == 'GET':
+        company_edit_form = CompanyEdit(instance=company_object)
+        return render(request, 'company/edit.html', {'form': company_edit_form})
+    elif request.method == 'POST':
+        company_edit_form = CompanyForm(data=request.POST, instance=company_object)
+        if company_edit_form.is_valid():
+            company = company_edit_form.save()
+            return redirect(company_info, id=company.id)
+        else:
+            return HttpResponse('ajhvf yt dfkblyf')

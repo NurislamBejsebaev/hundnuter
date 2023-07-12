@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import *
+from .forms import ResumeEditForm, ResumeForm
 
 
 def worker_list(request):
@@ -35,7 +36,6 @@ def add_resume(request):
     elif request.method == "POST":
         new_rusume = Resume()
         new_rusume.worker = request.user.worker
-        new_rusume.created_at = request.POST['form-created_at']
         new_rusume.title = request.POST['form-title']
         new_rusume.text = request.POST['form-text']
         new_rusume.save()
@@ -52,6 +52,39 @@ def resume_edit(request, id):
     return render(request, 'resumes/resume_edit.html', {'resume': resume})
 
 
+def resume_edit_django_form(request, id):
+    resume_object = Resume.objects.get(id=id)
+    if request.method == 'GET':
+        form = ResumeEditForm(instance=resume_object)
+        return render(request, 'resumes/resume_edit_df.html', {'form': form})
+    elif request.method == 'POST':
+        form = ResumeEditForm(data=request.POST, instance=resume_object)
+        if form.is_valid():
+            obj = form.save()
+            return redirect(resume_info, id=obj.id)
+        else:
+            HttpResponse('ajhvf yt dfkblyf')
 
 
+# def add_resume_df_django_form(request):
+#     if request.method == 'POST':
+#         form_resume = ResumeForm(request.POST)
+#         if form_resume.is_valid():
+#             resume_new = form_resume.save(commit=False)
+#             resume_new.author_id = request.user.id  # Устанавливаем идентификатор текущего пользователя как автора резюме
+#             resume_new.save()
+#             return redirect(f'/resume-info/{resume_new.id}/')
+#     obj_resume = ResumeForm()
+#     return render(request, 'resumes/resume_add_django_form.html', {'resume_ad': obj_resume})
 
+def add_resume_df_django_form(request):
+    if request.method == 'POST':
+        form_resume = ResumeForm(request.POST)
+        if form_resume.is_valid():
+            resume_new = form_resume.save(commit=False)
+            worker = get_object_or_404(Worker, user=request.user)  # Получаем объект Worker для текущего пользователя
+            resume_new.worker = worker  # Устанавливаем объект Worker в качестве значения поля "worker"
+            resume_new.save()
+            return redirect(f'/resume-info/{resume_new.id}/')
+    obj_resume = ResumeForm()
+    return render(request, 'resumes/resume_add_django_form.html', {'resume_ad': obj_resume})

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{%  block my_title %}
+      информация о компании
+{% endblock %}
+{% block content  %}
+      <h1>Информация о компании</h1>
+          <h2>{{ company.name }}</h2>
+          <div>{{ company.address }}</div>
+          <hr/>
+          <div>{{ company.created_at }}</div>
+          <hr/>
+        <a href="{% url 'company-edit' company.id %}">Изменить</a>
+{% endblock %}

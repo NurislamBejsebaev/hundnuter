@@ -38,8 +38,10 @@ class Vacancy(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
-    num_employees = models.IntegerField()
+    num_employees = models.IntegerField(null=True, blank=True)
     is_hunting = models.BooleanField(default=False)
+    created_at = models.TimeField(auto_now_add=True, verbose_name='Время создания', null=True, blank=True)
+    workers = models.ManyToManyField(Worker)
 
     def __str__(self):
         return self.name

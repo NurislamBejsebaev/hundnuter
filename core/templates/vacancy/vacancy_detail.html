@@ -18,5 +18,6 @@
     <li>Нет кандидатов</li>
   {% endfor %}
   <a href="{% url 'vacancy-edit' vacancy.id %}">Изменить вакансии</a> |
+  <a href="{% url 'vacancy-edit-df' vacancy.id %}">Изменить через django вакансии</a>
 </ul>
 {% endblock %}
