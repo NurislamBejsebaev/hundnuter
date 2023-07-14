@@ -36,8 +36,8 @@ def add_resume(request):
     elif request.method == "POST":
         new_rusume = Resume()
         new_rusume.worker = request.user.worker
-        new_rusume.title = request.POST['form-title']
-        new_rusume.text = request.POST['form-text']
+        new_rusume.title = request.POST['title']
+        new_rusume.text = request.POST['text']
         new_rusume.save()
         return HttpResponse('successfully added')
 
@@ -48,7 +48,7 @@ def resume_edit(request, id):
         resume.title = request.POST['title']
         resume.text = request.POST['text']
         resume.save()
-        return redirect(f'/vacancy/{resume.id}/')
+        return redirect(f'/resume-info/{resume.id}/')
     return render(request, 'resumes/resume_edit.html', {'resume': resume})
 
 

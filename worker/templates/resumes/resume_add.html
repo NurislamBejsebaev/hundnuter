@@ -1,14 +1,26 @@
 {% extends 'base.html' %}
 
+
+
 {% block content  %}
 
    <form method="POST">
        {% csrf_token %}
-      <input type="text" name="form-title" placeholder="Заголовок">
-      <textarea name="form-text" cols="20" rows="5" placeholder="Текст"></textarea>
-      <button>Добавить</button>
+              <div class="container mt-3">
+  <h2>Stacked form</h2>
+  <form action="/action_page.php">
+    <div class="mb-3 mt-3">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+    </div>
+    <div class="mb-3">
+      <label for="text">Text:</label>
+      <textarea type="text" class="form-control" id="text" placeholder="Enter text" name="text">
+      </textarea>
+    </div>
+       <button class="btn btn-primary">Добавить</button>
    </form>
-
-
+            </div>
+   </form>
 
 {% endblock %}

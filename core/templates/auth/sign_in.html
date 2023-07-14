@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{%static 'my_style.css'%}">
+</head>
+<body>
+        {% bootstrap_messages %}
+           </br></br></br>
+        <div class="container">
+            <form method="POST">
+            {% csrf_token %}
+                <h4>Ввидите пароль и логин</h4>
+                <div class="container mt-3">
+  <form action="/action_page.php">
+    <div class="mb-3 mt-3">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="password">Text:</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+    </div>
+   </form>
+                 </div>
+                <button class="btn btn-dark">Войти</button>
+            </form>
+        </div>
+</body>
+</html>

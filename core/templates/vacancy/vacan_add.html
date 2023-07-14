@@ -4,11 +4,33 @@
 
    <form method="POST">
        {% csrf_token %}
-      <input type="text" name="title" placeholder="заголовок">
-      <input type="number" name="salary" placeholder="цена">
-      <input type="email" name="email" placeholder="почта">
-      <textarea name="description" cols="20" rows="5" placeholder="описание"></textarea>
-      <button>Добавить</button>
+<!--      <input type="text" name="title" placeholder="заголовок">-->
+<!--      <input type="number" name="salary" placeholder="цена">-->
+<!--      <input type="email" name="email" placeholder="почта">-->
+<!--      <textarea name="description" cols="20" rows="5" placeholder="описание"></textarea>-->
+      <div class="container mt-3">
+  <h2>Stacked form</h2>
+  <form action="/action_page.php">
+    <div class="mb-3 mt-3">
+      <label for="titlee">Title:</label>
+      <input type="text" class="form-control" id="titlee" placeholder="Enter titlee" name="titlee">
+    </div>
+    <div class="mb-3">
+      <label for="salary">Salary:</label>
+      <input type="number" class="form-control" id="salary" placeholder="Enter salary" name="salary">
+    </div>
+         <div class="mb-3 mt-3">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <div class="mb-3">
+      <label for="description">Description:</label>
+      <input type="text" class="form-control" id="description" placeholder="Enter description" name="description">
+    </div>
+ <button class="btn btn-primary">Добавить</button>
+  </form>
+</div>
+
    </form>
 
 

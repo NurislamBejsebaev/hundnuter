@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage),
+    path('', homepage, name='home'),
     path('about/', about),
     path('contacts/',  contacts),
     path('adress/', adress),
@@ -31,7 +31,9 @@ urlpatterns = [
     path('vacancies-add-df/', vacancy_add_via_django_form, name='vacancies-add-df'),
     path('vacancy-redactor/<int:id>/', vacancy_edit_via_django_form, name='vacancy-edit-df'),
     path('search/', search, name='search'),
-    path("registration/", reg_view, name='reg')
+    path("registration/", reg_view, name='reg'),
+    path("sign-in/", sign_in, name='sign-in'),
+    path("sign-out/", sign_out, name='sign-out'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

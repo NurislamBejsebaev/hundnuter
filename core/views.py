@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from core.models import Vacancy, Company
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from .forms import VacancyForm, VacancyEditform, CompanyForm, CompanyEdit
 # Create your views here.
 
@@ -48,7 +49,6 @@ def company_info(request, id):
     return render(request, "company/info.html", context)
 
 
-
 def vacancy_detail(request, id):
     vacancy_object = get_object_or_404(Vacancy, id=id)
     candidates = vacancy_object.candidate.all()
@@ -64,6 +64,25 @@ def search(request):
     vacancy_list = Vacancy.objects.filter(title__contains=word)
     context = {'vacancies': vacancy_list}
     return render(request, 'vacancy/vacanies.html', context)
+
+
+def sign_in(request):
+    if request.POST == 'POST':
+        username =  request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('home')
+        else:
+            HttpResponse('Неверный пароль или логин')
+
+    return render(request, 'auth/sign_in.html')
+
+
+def sign_out(request):
+    logout(request)
+    return redirect(sign_in)
 
 
 def reg_view(request):
@@ -89,7 +108,7 @@ def vacancy_add(request):
     elif request.method == "POST":
         new_vacan = Vacancy()
         # new_vacan.candidate = request.
-        new_vacan.title = request.POST['title']
+        new_vacan.title = request.POST['titlee']
         new_vacan.salary = int(request.POST['salary'])
         new_vacan.email = request.POST['email']
         new_vacan.description = request.POST['description']
@@ -110,7 +129,7 @@ def vacancy_add_via_django_form(request):
 def vacancy_edit(request, id):
     vacancy = Vacancy.objects.get(id=id)
     if request.method == "POST":
-        vacancy.title = request.POST['title']
+        vacancy.title = request.POST['titlee']
         vacancy.salary = int(request.POST['salary'])
         vacancy.email = request.POST['email']
         vacancy.description = request.POST['description']
