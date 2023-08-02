@@ -3,6 +3,7 @@ from core.models import Vacancy, Company
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .forms import VacancyForm, VacancyEditform, CompanyForm, CompanyEdit
+from .filters import VacancyFilter
 # Create your views here.
 
 
@@ -34,7 +35,8 @@ def adress(request):
 
 
 def vacancy_list(request):
-    context = {"vacancies": Vacancy.objects.all()}
+    vacancy_filter = VacancyFilter(request.GET, queryset=Vacancy.objects.all())
+    context = {'filter': vacancy_filter}
     return render(request, 'vacancy/vacanies.html', context)
 
 
@@ -90,10 +92,8 @@ def reg_view(request):
         user = User(
             username=request.POST["username"]
         )
-        user.save()
         user.set_password(request.POST["password"])
-        user.save()
-        return HttpResponse('Готово')
+        return redirect('home')
 
     return render(
         request,

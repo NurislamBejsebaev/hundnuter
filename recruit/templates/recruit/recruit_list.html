@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Рекрутеры</h1>
+{% for r in object_list %}
+    <div>
+        <a href="{% url 'recruit-detail' r.pk %}">
+            {{ r.user.username }} | {{ r.city }}
+        </a>
+    </div>
+{% endfor %}
+{% endblock %}

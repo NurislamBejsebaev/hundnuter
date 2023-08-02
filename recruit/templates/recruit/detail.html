@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+     <h1>
+          Рекрутор {{ recruit_object.user.username }}
+     </h1>
+     <div>город:{{ recruit_object.city }}</div>
+     <div>страна:{{ recruit_object.counrty|default_if_none:" Не указано " }}</div>
+     <div>платеж за кандидата:{{ recruit_object.payment_for_found }}</div>
+     <div>платеж за работника:{{ recruit_object.bonus_percent }}</div>
+     <a href="{% url 'recruit-update' recruit_object.pk %}">Изменить</a>
+{% endblock %}

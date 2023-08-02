@@ -9,6 +9,12 @@
           <hr/>
           <div>{{resume.created_at}}</div>
           <hr/>
+        {% if resume.profile_photo %}
+          <div>
+              <img src="{{ resume.profile_photo.url }}" height="300px" width="250px">
+          </div>
+        {% endif %}
+          <hr/>
             <a href="{% url 'resume-edit' resume.id %}">Изменить</a>
             <a href="{% url 'resume-edit-df' resume.id %}">Изменить через джанго форму</a>
 {% endblock %}

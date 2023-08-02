@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import ResumeEditForm, ResumeForm
 
@@ -30,6 +31,7 @@ def my_resume(request):
     return render(request, "resumes/resume_list.html", {'resumes': resume_query})
 
 
+@login_required(login_url='sign-in')
 def add_resume(request):
     if request.method == "GET":
         return render(request, 'resumes/resume_add.html')
@@ -58,12 +60,12 @@ def resume_edit_django_form(request, id):
         form = ResumeEditForm(instance=resume_object)
         return render(request, 'resumes/resume_edit_df.html', {'form': form})
     elif request.method == 'POST':
-        form = ResumeEditForm(data=request.POST, instance=resume_object)
+        form = ResumeEditForm(data=request.POST, instance=resume_object, files=request.FILES)
         if form.is_valid():
             obj = form.save()
             return redirect(resume_info, id=obj.id)
         else:
-            HttpResponse('ajhvf yt dfkblyf')
+            HttpResponse('форма не валидно')
 
 
 # def add_resume_df_django_form(request):
