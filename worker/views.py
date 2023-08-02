@@ -81,7 +81,7 @@ def resume_edit_django_form(request, id):
 
 def add_resume_df_django_form(request):
     if request.method == 'POST':
-        form_resume = ResumeForm(request.POST)
+        form_resume = ResumeForm(request.POST, files=request.FILES)
         if form_resume.is_valid():
             resume_new = form_resume.save(commit=False)
             worker = get_object_or_404(Worker, user=request.user)  # Получаем объект Worker для текущего пользователя

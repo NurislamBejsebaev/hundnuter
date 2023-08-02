@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Новости</h1>
+{% for r in object_list %}
+    <div>
+        <a href="{% url 'news-detail' r.pk %}">
+            {{ r.title }}
+        </a>
+    </div>
+{% endfor %}
+{% endblock %}

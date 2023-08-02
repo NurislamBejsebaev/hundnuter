@@ -37,6 +37,14 @@
               <a class="nav-link" href="/workers">Кандидаты</a>
             </li>
 
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Новости</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'news-list-class-generic' %}">Список новостей</a></li>
+                <li><a class="dropdown-item" href="{% url 'news-create' %}">Добавить новость</a> </li>
+              </ul>
+            </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Компании</a>
               <ul class="dropdown-menu">

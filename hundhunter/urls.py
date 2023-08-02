@@ -37,6 +37,7 @@ urlpatterns = [
     path("login-generic/", LoginView.as_view(), name='sign-in-generic'),
     path("sign-out/", sign_out, name='sign-out'),
     path("recruit/", include('recruit.urls')),
+    path("news/", include('news.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
