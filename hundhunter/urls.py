@@ -14,7 +14,7 @@ urlpatterns = [
     path('adress/', adress),
     path('vacancies/', vacancy_list),
     path('companies/', company_list),
-    path('company-info/<int:id>/', company_info),
+    path('company-info/<int:id>/', company_info, name='company-info'),
     path('company-add/', company_add),
     path('company-edit//<int:id>/', company_edit, name='company-edit'),
     path('workers/', worker_list),

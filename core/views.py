@@ -2,13 +2,19 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from core.models import Vacancy, Company
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import ObjectDoesNotExist
 from .forms import VacancyForm, VacancyEditform, CompanyForm, CompanyEdit
 from .filters import VacancyFilter
 # Create your views here.
 
 
 def homepage(request):
-    return render(request=request, template_name="index.html")
+    if request == "POST":
+        return HttpResponse('метод не разешен, только GET', status=405)
+    context = {}
+    context["vacancies"] = Vacancy.objects.all()[:5]
+    context["companies"] = Company.objects.all()[:3]
+    return render(request=request, template_name="index.html", context=context)
 
 
 def about(request):
@@ -52,7 +58,10 @@ def company_info(request, id):
 
 
 def vacancy_detail(request, id):
-    vacancy_object = get_object_or_404(Vacancy, id=id)
+    try:
+        vacancy_object = Vacancy.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponse("Укажите правильный id", status=404)
     candidates = vacancy_object.candidate.all()
     context = {
         'vacancy': vacancy_object,

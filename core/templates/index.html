@@ -10,4 +10,17 @@
       Поиск работы и работников
       Поиск работы и работников
     </div>
+    <h2>ТОП 3 вакансии </h2>
+    {% for v in vacancies %}
+       <a href="{% url 'vacancy-detail' v.id %}">
+           <h2> {{ v.title }} </h2>
+       </a>
+    {% endfor %}
+    <hr/>
+    <h2>ТОП 2 компании </h2>
+    {% for c in companies %}
+       <a href="{% url 'company-info' c.id %}">
+           <h2> {{ c.name }} </h2>
+       </a>
+    {% endfor %}
 {% endblock %}
