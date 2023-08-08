@@ -7,9 +7,10 @@
 
 {% block content  %}
 <h2>Описание вакансии</h2>
+<p>{{ vacancy.title}}</p>
+<p>{{ vacancy.email}}</p>
 <p>{{ vacancy.description }}</p>
 <p>{{vacancy.salary}}</p>
-
 <h2>Кандидаты</h2>
 <ul>
   {% for candidate in candidates %}

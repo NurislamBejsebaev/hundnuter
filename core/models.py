@@ -9,7 +9,7 @@ class Vacancy(models.Model):
     description = models.TextField(default='Нет описания ')
     is_relevant = models.BooleanField(default=True)
     email = models.EmailField()
-    contacts = models.CharField(max_length=100, verbose_name='Контакты')
+    contacts = models.CharField(max_length=100, verbose_name='Контакты', null=True, blank=True)
     candidate = models.ManyToManyField(
         to=Worker,
         blank=True,
@@ -42,6 +42,7 @@ class Company(models.Model):
     is_hunting = models.BooleanField(default=False)
     created_at = models.TimeField(auto_now_add=True, verbose_name='Время создания', null=True, blank=True)
     workers = models.ManyToManyField(Worker)
+
 
     def __str__(self):
         return self.name

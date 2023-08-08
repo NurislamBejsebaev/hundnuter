@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import ArticleNew
+from .models import *
 
 
 class ArticleNewListView(LoginRequiredMixin, ListView):
@@ -9,8 +10,17 @@ class ArticleNewListView(LoginRequiredMixin, ListView):
 
 
 def news_detail(request, pk):
-    news_object = ArticleNew.objects.get(pk=pk)
-    return render(request, 'news/detail.html', {'news_object': news_object})
+    new = ArticleNew.objects.get(pk=pk)
+    new.views_count += 1
+    new.user_views.add(request.user)
+    new.save()
+
+    new_view_object = NewsView.objects.get_or_create(
+        new=new,
+        user=request.user
+    )
+
+    return render(request, 'news/articlenew_detail_form.html', {'object_list': new})
 
 
 class ArticleNewCreateView(CreateView):

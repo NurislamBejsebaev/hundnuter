@@ -5,15 +5,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import VacancyForm, VacancyEditform, CompanyForm, CompanyEdit
 from .filters import VacancyFilter
+
+
 # Create your views here.
 
 
 def homepage(request):
     if request == "POST":
         return HttpResponse('метод не разешен, только GET', status=405)
-    context = {}
-    context["vacancies"] = Vacancy.objects.all()[:5]
-    context["companies"] = Company.objects.all()[:3]
+    context = {"vacancies": Vacancy.objects.all()[:5],
+               "companies": Company.objects.all()[:3]
+               }
     return render(request=request, template_name="index.html", context=context)
 
 
@@ -79,7 +81,7 @@ def search(request):
 
 def sign_in(request):
     if request.POST == 'POST':
-        username =  request.POST['username']
+        username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user:
