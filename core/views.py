@@ -104,7 +104,7 @@ def reg_view(request):
             username=request.POST["username"]
         )
         user.set_password(request.POST["password"])
-        return redirect('home')
+        return redirect('')
 
     return render(
         request,
@@ -186,3 +186,4 @@ def company_edit(request, id):
             return redirect(company_info, id=company.id)
         else:
             return HttpResponse('ajhvf yt dfkblyf')
+
