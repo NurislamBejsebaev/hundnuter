@@ -104,7 +104,7 @@ def reg_view(request):
             username=request.POST["username"]
         )
         user.set_password(request.POST["password"])
-        return redirect('')
+        return redirect('home')
 
     return render(
         request,
